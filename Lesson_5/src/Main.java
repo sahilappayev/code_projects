@@ -40,6 +40,8 @@ public class Main {
         // git pull - remote deyishiklikeri chekir
         // git fetch - deyisikleri yox, onlarinda melumati
         // git push - localdakilari remota gonderir
+        // git remote add origin {remote_url}
+        // git push -u origin main
 
 
         int[] numbers = {10, 6, 3, 4, 483, 2, 7, 4, 9, -7};
