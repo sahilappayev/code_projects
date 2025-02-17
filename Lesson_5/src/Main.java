@@ -36,12 +36,19 @@ public class Main {
         // git init
         // git branch
         // git checkout -B feature/edit_name
-        // git add {filename} ve ya git add .
+        // git checkout feature/edit_name
+        // git add {filename}, {filename_2} ve ya git add .
         // git pull - remote deyishiklikeri chekir
         // git fetch - deyisikleri yox, onlarinda melumati
         // git push - localdakilari remota gonderir
         // git remote add origin {remote_url}
+        // git commit -m "some message"
         // git push -u origin main
+        // git stash list
+        // git stash save {message}
+        // git stash apply {index}
+        // git stash drop {index}
+        // git stash pop {index}
         // ---
         // +++++
 
