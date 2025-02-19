@@ -11,6 +11,8 @@ public class Main {
         // 3. Polymorphism - chox shekillik
         // 4. Abstraction  - mucerredlik, umumileshdirme
 
+        // variable - field/state
+        // method - behaviour
         Human human = new Human();
         human.name = "Ali";
         human.age = 5;
