@@ -1,8 +1,10 @@
 package abstraction;
 
-public abstract class Employee {
+import encapsulation.Human;
 
-    private String name;
+public abstract class Employee extends Human {
+
+    private final String name;
     private int salary;
     private String position;
 
@@ -19,10 +21,6 @@ public abstract class Employee {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getSalary() {

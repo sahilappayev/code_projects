@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Employee employee = new Developer("Ali", 1000, "Dev");
+        Developer employee = new Developer("Ali", 1000, "Dev");
 
         printInstanceName(employee);
 

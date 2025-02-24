@@ -1,6 +1,6 @@
 package abstraction;
 
-public class TechLead extends Employee implements Manageable {
+public class TechLead extends Employee implements Manageable, NewInterface {
 
     public TechLead(String name, int salary, String position) {
         super(name, salary, position);
