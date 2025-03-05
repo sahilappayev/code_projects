@@ -13,13 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Main {
 
     public static void main(String[] args) {
+
+        // eqauls ve hashcode convention
         // HashMap -> null - key, null -> value
         // LinkedHashMap -> siralamani temin edir
         // ConcurrentHashMap -> multiThread, no null value
         // TreeMap -> no null -> key, valuelari sort edir
-        Map<String, Number> map = new HashMap<>();
+        Map<String, Number> map = new TreeMap<>();
 
-//        Set<String> set = new LinkedHashSet<>();
+
 
         map.put("A", 1);
         map.put("B", 2);
@@ -35,9 +37,16 @@ public class Main {
 
         // E -> 2
         // B -> 1
+        Set<String> set = new HashSet<>();
 
-        System.out.println(map);
+        System.out.println("MAP: " + map);
+        System.out.println("SET: " + set);
 
+        set.add("Z");
+        set.add("A");
+        set.add("T");
+
+        System.out.println("SET: " + set);
 
         //bucket 0 - -> node -> node
         // bucket 1 -> node -> node -> node
