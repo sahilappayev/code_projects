@@ -49,6 +49,8 @@ public class Main {
 //
 //        System.out.println(mutableStrings);
 
+        List<String> list1 = new ArrayList<>(2);
+
 
         MyLinkedList<String> linkedStrings = new MyLinkedList<>();
 
@@ -56,7 +58,10 @@ public class Main {
         linkedStrings.add("A");
         linkedStrings.add("B");
 
-        System.out.println(linkedStrings);
+        System.out.println(linkedStrings.get(1));
+
+
+
 
 
     }

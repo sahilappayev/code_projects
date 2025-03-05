@@ -1,5 +1,6 @@
 package generics;
 
+import java.util.List;
 import java.util.Random;
 
 public class Main {
@@ -41,7 +42,7 @@ public class Main {
     }
 
     // ? - unbounded
-    //? extends Number - upper-bounded
+    // ? extends Number - upper-bounded
     // ? super String -  lower-bounded
     public static void printStudentsName(Store<Student, ? extends Number> studentStore) {
         for (int i = 0; i < studentStore.getCurrentIndex(); i++) {

@@ -6,11 +6,9 @@ public class MyLinkedList<T> {
     private Node<T> head;
     private Node<T> tail;
 
-
     public int size() {
         return size;
     }
-
 
     public boolean isEmpty() {
         return size == 0;
@@ -35,19 +33,38 @@ public class MyLinkedList<T> {
         size++;
     }
 
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
 
-    @Override
-    public String toString() {
-        Node<T> current = tail;
-        if (current.getNext() != null) {
-            System.out.println("Current node is: " + current);
+        Node<T> current = head;
+
+        for (int i = 0; i < index; i++) {
             current = current.getNext();
         }
 
-        return "MyLinkedList{" +
+        return current.getData();
+    }
+
+
+    @Override
+    public String toString() {
+        Node<T> current = head;  // null
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n[");
+
+        while (current != null) {
+            sb.append(current.getData() + ", ");
+            current = current.getNext();
+        }
+        sb.append("]");
+
+        return "MyLinkedList" +
+                "\n{" +
                 "size=" + size +
-                ", head=" + head +
-                ", tail=" + tail +
-                '}';
+                sb +
+                "\n}";
     }
 }
