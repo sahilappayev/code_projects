@@ -1,6 +1,21 @@
 package sorting;
 
-public class User {
+public class User implements Comparable<User> {
+
+
+    @Override
+    public int compareTo(User user) {
+        int result;
+
+        if (this.getAge() > user.getAge()) {
+            result = 1;
+        } else if (this.getAge() < user.getAge()) {
+            result = -1;
+        } else {
+            result = this.getName().compareTo(user.getName());
+        }
+        return result;
+    }
 
     private String name;
     private int age;

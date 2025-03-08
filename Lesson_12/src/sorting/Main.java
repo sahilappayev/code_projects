@@ -31,7 +31,9 @@ public class Main {
 //                .comparing(User::getAge)
 //                .thenComparing(User::getName).reversed());
 
-        Collections.sort(users, comparator.reversed());
+//        users.sort();
+
+//        Collections.sort(users, User::compareTo );
 
         System.out.println(users);
     }
