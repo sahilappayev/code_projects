@@ -20,7 +20,7 @@ public class PersonDAO {
 
         try (Connection conn = DbConfig.getInstance().getConnection()) {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM persons");
+            ResultSet rs = statement.executeQuery("SELECT * FROM persons order by id");
 
             while (rs.next()) {
                 Person person = getPersonFromResultSet(rs);
@@ -67,6 +67,29 @@ public class PersonDAO {
             statement.executeUpdate();
 
             return findById(id).get();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Person create(Person person) {
+        try (Connection connection = DbConfig.getInstance().getConnection()) {
+            String sql = "insert into persons (name, surname ,address, email, salary) values (?, ?, ?, ?, ?) returning *";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, person.getName());
+            statement.setString(2, person.getSurname());
+            statement.setString(3, person.getAddress());
+            statement.setString(4, person.getEmail());
+            statement.setBigDecimal(5, person.getSalary());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return getPersonFromResultSet(resultSet);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
