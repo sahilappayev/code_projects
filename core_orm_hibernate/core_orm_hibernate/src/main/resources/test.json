@@ -1,0 +1,16 @@
+{
+  "name": "sahil",
+  "age": 15,
+  "adress": {
+    "city": "Baku",
+    "street": "Nizami str"
+  },
+  "hobbies": [
+    "football",
+    "Movie",
+    {
+      "name": "test"
+    }
+  ]
+}
+

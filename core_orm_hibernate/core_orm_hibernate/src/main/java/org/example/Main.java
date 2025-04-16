@@ -31,6 +31,8 @@ public class Main {
 //        System.out.println(personDetailRepository.findById(1));
 
 
+        // Dependency Injection (DI)
+        // Inversion of Control (IoC)
         TeacherRepository teacherRepository = new TeacherRepository();
 
         System.out.println(teacherRepository.findById(2));
@@ -38,7 +40,13 @@ public class Main {
 //        StudentRepository sr = new StudentRepository();
 //        System.out.println(sr.findById(4));
 
+        // HTTP -> Get, Post, Put, Delete, Patch, Option, Head
+        // request -> url, query param, header, path variable , request body
+        // response, status, response body
 
+        // safe, idempotent, none
+
+        // 100 -199, 200 - 299, 300-399, 400- 499, 500 -599
     }
 
 
