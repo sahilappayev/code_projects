@@ -1,9 +1,7 @@
 package org.example;
 
 import org.example.entity.User;
-import org.example.repository.PersonDetailRepository;
-import org.example.repository.PersonRepository;
-import org.example.repository.UserRepository;
+import org.example.repository.TeacherRepository;
 
 public class Main {
 
@@ -25,12 +23,21 @@ public class Main {
 //        System.out.println(ur.findById(9));
 
 
-        PersonRepository personRepository = new PersonRepository();
-        PersonDetailRepository personDetailRepository = new PersonDetailRepository();
+//        PersonRepository personRepository = new PersonRepository();
+//        PersonDetailRepository personDetailRepository = new PersonDetailRepository();
+//
+//
+//        System.out.println(personRepository.findById(4));
+//        System.out.println(personDetailRepository.findById(1));
 
 
-        System.out.println(personRepository.findById(4));
-        System.out.println(personDetailRepository.findById(1));
+        TeacherRepository teacherRepository = new TeacherRepository();
+
+        System.out.println(teacherRepository.findById(2));
+
+//        StudentRepository sr = new StudentRepository();
+//        System.out.println(sr.findById(4));
+
 
     }
 
