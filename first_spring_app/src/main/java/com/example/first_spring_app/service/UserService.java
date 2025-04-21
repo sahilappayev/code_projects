@@ -7,11 +7,16 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     public UserDto getUserById(long id) {
-        return UserDto.builder()
+
+        UserDto user = UserDto.builder()
                 .id(id)
                 .username("username" + id)
                 .password("password" + id)
                 .build();
+
+        user.get
+
+        return user;
     }
 
 
