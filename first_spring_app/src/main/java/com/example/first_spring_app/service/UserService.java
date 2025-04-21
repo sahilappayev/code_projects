@@ -3,7 +3,7 @@ package com.example.first_spring_app.service;
 import com.example.first_spring_app.dto.UserDto;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class UserService {
 
     public UserDto getUserById(long id) {
@@ -14,4 +14,12 @@ public class UserService {
                 .build();
     }
 
+
+    public UserDto getUserByName(String name) {
+        return UserDto.builder()
+                .id(5L)
+                .username(name)
+                .password("password")
+                .build();
+    }
 }
