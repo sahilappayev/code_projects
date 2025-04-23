@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      author: Sahil Appayev
+      id: 23042025_add_auto_increment_to_the_id_user_table
+      changes:
+        - addAutoIncrement:
+            tableName: users
+            columnName: id

@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      author: Sahil Appayev
+      id: 23042025_create_user_table
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: NUMBER
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true

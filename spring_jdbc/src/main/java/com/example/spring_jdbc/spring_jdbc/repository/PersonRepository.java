@@ -23,7 +23,7 @@ public class PersonRepository {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public List<Person> findAll() {
-        String sql = "select id, name, surname from persons";
+        String sql = "select * from persons";
 
         return jdbcTemplate.query(sql, new PersonRowMapper());
     }

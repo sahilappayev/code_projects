@@ -1,8 +1,3 @@
 spring:
   application:
     name: spring_jdbc
-
-  datasource:
-    username: sahil
-    password: mypassword
-    url: jdbc:postgresql://127.0.0.1:5433/postgres
