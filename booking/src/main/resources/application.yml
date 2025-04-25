@@ -9,7 +9,19 @@ spring:
 
   liquibase:
     enabled: true
+#  jpa:
+#    open-in-view: false
 
 logging:
   level:
     root: info
+
+server:
+  port: 8088
+  servlet:
+    context-path: /api
+
+springdoc:
+  swagger-ui:
+    path: /test-ui
+

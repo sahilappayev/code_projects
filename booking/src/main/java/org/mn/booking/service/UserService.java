@@ -1,6 +1,5 @@
 package org.mn.booking.service;
 
-import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +11,7 @@ import org.mn.booking.error.EntityNotFoundException;
 import org.mn.booking.mapper.UserMapper;
 import org.mn.booking.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,19 +33,46 @@ public class UserService {
         return responseDto;
     }
 
-    public UserResponseDto findById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(User.class, id));
-
+    public UserResponseDto findUserById(Long id) {
+        log.info("UserService: find user by id: {}", id);
+        User user = findById(id);
         return userMapper.toUserResponseDto(user);
     }
 
-    public List<UserResponseDto> findAll(){
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(User.class, id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserResponseDto> findAll() {
+        log.info("UserService: find all users");
         List<User> users = userRepository.findAll();
 
         return users.stream()
                 .map(userMapper::toUserResponseDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public UserResponseDto update(Long id, UserRequestDto userRequestDto) {
+        log.info("UserService: update user started with: {}", userRequestDto);
+        User user = findById(id);
+        userMapper.toEntity(user, userRequestDto);
+        UserResponseDto responseDto = userMapper
+                .toUserResponseDto(userRepository.save(user));
+
+        log.info("UserService: update user finished with: {}", responseDto);
+        return responseDto;
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        log.info("UserService: delete user started with: {}", id);
+//        userRepository.deleteById(id);
+        User user = findById(id);
+        userRepository.delete(user);
+        log.info("UserService: delete user finished with: {}", id);
     }
 
 

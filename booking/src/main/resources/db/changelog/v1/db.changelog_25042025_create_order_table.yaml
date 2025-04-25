@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      author: Sahil Appayev
+      id: 25042025_create_order_table
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueDate: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueDate: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      author: Sahil Appayev
+      id: 25042025_add_user_id_to_the_orders_table
+      changes:
+        - addColumn:
+            tableName: orders
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_orders_user_id
+                    referencedTableName: users
+                    referencedColumnNames: id

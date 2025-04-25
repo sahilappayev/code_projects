@@ -1,12 +1,10 @@
 package org.mn.booking.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.Column;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @Setter
@@ -20,6 +18,6 @@ public class UserResponseDto {
     private String password;
     private String firstName;
     private String lastName;
-    private Date createdAt;
-    private Date updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
