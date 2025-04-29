@@ -5,10 +5,13 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mn.booking.dto.request.UserRequestDto;
+import org.mn.booking.dto.response.OrderResponseDto;
 import org.mn.booking.dto.response.UserResponseDto;
 import org.mn.booking.entity.User;
 import org.mn.booking.error.EntityNotFoundException;
-import org.mn.booking.mapper.UserMapper;
+import org.mn.booking.mapper.OrderMapper;
+import org.mn.booking.mapper.OrderMapperM;
+import org.mn.booking.mapper.UserMapperM;
 import org.mn.booking.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
+    private final UserMapperM userMapper;
 
     @Transactional
     public UserResponseDto create(UserRequestDto userRequestDto) {
@@ -48,10 +51,7 @@ public class UserService {
     public List<UserResponseDto> findAll() {
         log.info("UserService: find all users");
         List<User> users = userRepository.findAll();
-
-        return users.stream()
-                .map(userMapper::toUserResponseDto)
-                .collect(Collectors.toList());
+        return userMapper.toUserResponseDtoList(users);
     }
 
     @Transactional

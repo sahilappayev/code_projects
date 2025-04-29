@@ -6,11 +6,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mn.booking.dto.request.OrderRequestDto;
 import org.mn.booking.dto.response.OrderResponseDto;
+import org.mn.booking.dto.response.UserResponseDto;
 import org.mn.booking.entity.Order;
 import org.mn.booking.entity.User;
 import org.mn.booking.error.EntityNotFoundException;
 import org.mn.booking.mapper.OrderMapper;
+import org.mn.booking.mapper.OrderMapperM;
 import org.mn.booking.mapper.UserMapper;
+import org.mn.booking.mapper.UserMapperM;
 import org.mn.booking.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final OrderMapper orderMapper;
-    private final UserMapper userMapper;
+    private final OrderMapperM orderMapper;
+    private final UserMapperM userMapper;
     private final UserService userService;
 
     @Transactional
@@ -34,6 +37,7 @@ public class OrderService {
 
         OrderResponseDto responseDto = orderMapper
                 .toResponseDto(orderRepository.save(order));
+        responseDto.setUserResponseDto(userMapper.toUserResponseDto(user));
 
         log.info("OrderService: create order finished with: {}", responseDto);
         return responseDto;
@@ -58,7 +62,8 @@ public class OrderService {
         return orders.stream()
                 .map(order -> {
                     OrderResponseDto responseDto = orderMapper.toResponseDto(order);
-                    responseDto.setUserResponseDto(userMapper.toUserResponseDto(order.getUser()));
+                    UserResponseDto userResponseDto = userMapper.toUserResponseDto(order.getUser());
+                    responseDto.setUserResponseDto(userResponseDto);
                     return responseDto;
                 })
                 .collect(Collectors.toList());
