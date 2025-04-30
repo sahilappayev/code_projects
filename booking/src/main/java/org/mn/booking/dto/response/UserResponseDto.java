@@ -19,6 +19,7 @@ public class UserResponseDto {
     private String password;
     private String firstName;
     private String lastName;
+    private String image;
     private List<OrderResponseDto> orderResponseDtoList;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      author: Sahil Appayev
+      id: 30042025_add_image_column_to_user_table
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: image
+                  type: VARCHAR(255)

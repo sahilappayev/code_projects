@@ -7,6 +7,7 @@ import org.mn.booking.dto.request.UserRequestDto;
 import org.mn.booking.dto.response.UserResponseDto;
 import org.mn.booking.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RestController
@@ -30,9 +33,19 @@ public class UserController {
         return userService.findAll();
     }
 
+    @GetMapping("/by-first-name")
+    public List<UserResponseDto> getAllUsersByFirstName(@RequestParam("firstName") String firstName) {
+        return userService.findAllByFirstName(firstName);
+    }
+
     @GetMapping("/{id}")
     public UserResponseDto getUserById(@PathVariable Long id) {
         return userService.findUserById(id);
+    }
+
+    @GetMapping("/by-username/{username}")
+    public UserResponseDto getUserByUsername(@PathVariable String username) {
+        return userService.findByUsername(username);
     }
 
     @PostMapping
@@ -52,4 +65,16 @@ public class UserController {
         userService.delete(id);
     }
 
+    @PostMapping("/image")
+    public UserResponseDto uploadImage(@RequestParam Long userId,
+                                       @RequestParam MultipartFile file) {
+        return userService.uploadImage(userId, file);
+    }
+
+    @GetMapping(value = "/image/{fileName}",
+            produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    @ResponseStatus(HttpStatus.OK)
+    public byte[] getImage(@PathVariable("fileName") String fileName) {
+        return userService.getImage(fileName);
+    }
 }

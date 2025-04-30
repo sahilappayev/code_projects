@@ -29,6 +29,10 @@ dependencies {
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6'
 
+	implementation("io.minio:minio:8.5.17")
+
+	implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.6'
+
 	implementation 'org.liquibase:liquibase-core'
 
 	compileOnly 'org.projectlombok:lombok'
