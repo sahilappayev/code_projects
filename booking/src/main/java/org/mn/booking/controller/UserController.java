@@ -1,6 +1,9 @@
 package org.mn.booking.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.mn.booking.dto.request.UserRequestDto;
@@ -8,6 +11,7 @@ import org.mn.booking.dto.response.UserResponseDto;
 import org.mn.booking.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+@Validated
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
@@ -34,7 +39,9 @@ public class UserController {
     }
 
     @GetMapping("/by-first-name")
-    public List<UserResponseDto> getAllUsersByFirstName(@RequestParam("firstName") String firstName) {
+    public List<UserResponseDto> getAllUsersByFirstName(@RequestParam("firstName")
+                                                            @NotBlank(message = "{firstname.message}")
+                                                            String firstName) {
         return userService.findAllByFirstName(firstName);
     }
 
@@ -49,13 +56,13 @@ public class UserController {
     }
 
     @PostMapping
-    public UserResponseDto createUser(@RequestBody UserRequestDto userRequestDto) {
+    public UserResponseDto createUser(@RequestBody @Valid UserRequestDto userRequestDto, HttpServletRequest request) {
         return userService.create(userRequestDto);
     }
 
     @PutMapping("/{id}")
     public UserResponseDto updateUser(@PathVariable Long id,
-                                      @RequestBody UserRequestDto userRequestDto) {
+                                      @RequestBody @Valid UserRequestDto userRequestDto) {
         return userService.update(id, userRequestDto);
     }
 

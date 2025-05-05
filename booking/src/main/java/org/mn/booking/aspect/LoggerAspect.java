@@ -40,22 +40,22 @@ public class LoggerAspect {
 //    }
 
 
-    @AfterReturning(value = "execution(* org.mn.booking.service.*.*(*))",
-            argNames = "joinPoint, object", returning = "object")
-    public void logAfterReturning(JoinPoint joinPoint, Object object) {
-
-        Class<?> aClass = object.getClass();
-
-        System.out.println("AfterReturning Method response type: " + aClass);
-        System.out.println("AfterReturning Method response value: " + object);
-    }
-
-    @AfterThrowing(value = "execution(* org.mn.booking.service.*.*(..))",
-            argNames = "joinPoint, exception",  throwing = "exception")
-    public void logAfterReturning(JoinPoint joinPoint, Exception exception) {
-        System.out.println("AfterThrowing Method exception type: " + exception.getClass());
-        System.out.println("AfterThrowing Method exception message: " + exception.getMessage());
-    }
+//    @AfterReturning(value = "execution(* org.mn.booking.service.*.*(*))",
+//            argNames = "joinPoint, object", returning = "object")
+//    public void logAfterReturning(JoinPoint joinPoint, Object object) {
+//
+//        Class<?> aClass = object.getClass();
+//
+//        System.out.println("AfterReturning Method response type: " + aClass);
+//        System.out.println("AfterReturning Method response value: " + object);
+//    }
+//
+//    @AfterThrowing(value = "execution(* org.mn.booking.service.*.*(..))",
+//            argNames = "joinPoint, exception",  throwing = "exception")
+//    public void logAfterReturning(JoinPoint joinPoint, Exception exception) {
+//        System.out.println("AfterThrowing Method exception type: " + exception.getClass());
+//        System.out.println("AfterThrowing Method exception message: " + exception.getMessage());
+//    }
 
 
 //    @Around(value = "execution(* org.mn.booking.service.*.*(..))",

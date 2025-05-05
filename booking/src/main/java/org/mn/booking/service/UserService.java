@@ -31,7 +31,7 @@ public class UserService {
     private final FileService fileService;
     private final FileUtil fileUtil;
     private final MinioProperties minioProperties;
-
+    private final PdfGeneratorService pdfGeneratorService;
 
     @Transactional
     public UserResponseDto create(UserRequestDto userRequestDto) {
@@ -48,6 +48,8 @@ public class UserService {
     public UserResponseDto findUserById(Long id) {
         log.info("UserService: find user by id: {}", id);
         User user = findById(id);
+        String html = pdfGeneratorService.parseThymeleafTemplate(user);
+        pdfGeneratorService.generatePdfFromHtml(html);
         return userMapper.toUserResponseDto(user);
     }
 
