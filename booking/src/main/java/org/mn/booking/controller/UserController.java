@@ -2,6 +2,7 @@ package org.mn.booking.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.mn.booking.dto.response.UserResponseDto;
 import org.mn.booking.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,7 @@ public class UserController {
 
     private final UserService userService;
 
+//    @PreAuthorize("hasRole('ADMIN')")
     @Operation(method = "get", description = "Userlerin hamisini qaytarir")
     @GetMapping
     public List<UserResponseDto> getAllUsers() {
@@ -40,11 +43,12 @@ public class UserController {
 
     @GetMapping("/by-first-name")
     public List<UserResponseDto> getAllUsersByFirstName(@RequestParam("firstName")
-                                                            @NotBlank(message = "{firstname.message}")
-                                                            String firstName) {
+                                                        @NotBlank(message = "{firstname.message}")
+                                                        String firstName) {
         return userService.findAllByFirstName(firstName);
     }
 
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
     public UserResponseDto getUserById(@PathVariable Long id) {
         return userService.findUserById(id);
@@ -84,4 +88,11 @@ public class UserController {
     public byte[] getImage(@PathVariable("fileName") String fileName) {
         return userService.getImage(fileName);
     }
+
+    @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public byte[] generatePdf(@RequestParam Long userId, HttpServletResponse response) {
+        response.setHeader("Content-Disposition", "inline; filename=user.pdf");
+        return userService.generatePdf(userId);
+    }
+
 }

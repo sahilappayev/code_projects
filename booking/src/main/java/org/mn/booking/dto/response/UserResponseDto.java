@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.mn.booking.annotation.constant.RoleEnum;
 
 @Getter
 @Setter
@@ -21,6 +22,7 @@ public class UserResponseDto {
     private String lastName;
     private String image;
     private List<OrderResponseDto> orderResponseDtoList;
+    private List<RoleEnum> roles;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime currentDate;

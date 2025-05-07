@@ -1,5 +1,6 @@
 package org.mn.booking.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -31,15 +32,16 @@ public class PdfGeneratorService {
         return templateEngine.process("user_info", context);
     }
 
-    public void generatePdfFromHtml(String html) {
-        String outputFolder = "user_info.pdf";
-        try (OutputStream outputStream = new FileOutputStream(outputFolder)) {
+    public byte[] generatePdfFromHtml(String html) {
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             ITextRenderer renderer = new ITextRenderer();
             renderer.setDocumentFromString(html);
             renderer.layout();
             renderer.createPDF(outputStream);
+            return outputStream.toByteArray();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return new byte[0];
     }
 }

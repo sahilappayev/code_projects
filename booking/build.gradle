@@ -27,12 +27,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6'
 
 	implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
 	implementation 'org.xhtmlrenderer:flying-saucer-pdf:9.5.1'
 
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: "${jwt_version}"
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: "${jwt_version}"
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: "${jwt_version}"
 
 	implementation("io.minio:minio:8.5.17")
 

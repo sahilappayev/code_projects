@@ -1,15 +1,14 @@
 package org.mn.booking.dto.request;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.mn.booking.annotation.Password;
+import org.mn.booking.annotation.constant.RoleEnum;
 
 @Getter
 @Setter
@@ -29,11 +28,12 @@ public class UserRequestDto {
     @NotNull
     private String firstName;
     private String lastName;
+    private List<RoleEnum> roles;
 
-    @Email
-    private String email;
-
-    @Positive
-    @Min(value = 18, message = "{age.message}")
-    private Integer age;
+//    @Email
+//    private String email;
+//
+//    @Positive
+//    @Min(value = 18, message = "{age.message}")
+//    private Integer age;
 }
