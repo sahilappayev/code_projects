@@ -28,6 +28,8 @@ public class JwtService {
     @Value("${jwt.refresh.ttl}")
     private Integer ttlRefreshInMinutes;
 
+    public static final String AUTHORITIES = "authorities";
+
 
     public String extractUsername(String token) {
         return extractClaim(token, getAccessSecretKey(), Claims::getSubject);
@@ -37,21 +39,16 @@ public class JwtService {
         return extractClaim(token, getRefreshSecretKey(), Claims::getSubject);
     }
 
-    public <T> T extractClaim(String token, Key key, Function<Claims, T> claimsResolver) {
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        return extractClaim(token, getAccessSecretKey(), claimsResolver);
+    }
+
+    private <T> T extractClaim(String token, Key key, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token, key);
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails, Map<String, Object> extraClaims) {
-        return buildAccessToken(userDetails, extraClaims);
-    }
-
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
-    }
-
-    private boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
@@ -71,7 +68,7 @@ public class JwtService {
 
     public String buildAccessToken(UserDetails userDetails, Map<String, Object> extraClaims) {
         return Jwts.builder().subject(userDetails.getUsername())
-                .claim("roles", userDetails.getAuthorities())
+                .claim(AUTHORITIES, userDetails.getAuthorities())
                 .claims(extraClaims)
                 .issuedAt(new Date())  // 2 * 60 * 1000
                 .expiration(new Date(System.currentTimeMillis() + (1000L * 60 * ttlAccessInMinutes)))

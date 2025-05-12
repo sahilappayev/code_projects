@@ -1,5 +1,6 @@
 package org.mn.booking.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -9,18 +10,22 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@RequiredArgsConstructor
 @Configuration
 //@EnableMethodSecurity
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final JwtAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(req -> {
                     req
+                            .requestMatchers("/auth/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**",
                                     "/swagger-ui.html").permitAll()
                             .requestMatchers(HttpMethod.GET, "/users/**", "/orders/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
@@ -30,13 +35,16 @@ public class SecurityConfig {
                             .anyRequest().authenticated();
 
 
-                }).csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-                .httpBasic();
+                })
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
+                .logout(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
-
 
 //    @Bean
 //    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
@@ -58,6 +66,7 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+//        return NoOpPasswordEncoder.getInstance();
     }
 
 }

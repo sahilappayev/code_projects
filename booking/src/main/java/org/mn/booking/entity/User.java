@@ -34,7 +34,7 @@ public class User extends BaseEntity {
     private String password;
     private String image;
 
-    @Column(name = "first_name")
+//    @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
@@ -43,7 +43,8 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH,
+            CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))

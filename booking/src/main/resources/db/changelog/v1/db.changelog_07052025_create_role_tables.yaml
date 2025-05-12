@@ -49,3 +49,12 @@ databaseChangeLog:
                     nullable: false
                     referencedTableName: roles
                     referencedColumnNames: id
+
+
+  - changeSet:
+      author: Sahil Appayev
+      id: add role name constraint
+      changes:
+        - addUniqueConstraint:
+            tableName: roles
+            columnNames: name

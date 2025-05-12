@@ -25,6 +25,7 @@ public interface UserMapperM {
 
     User toEntity(UserRequestDto userRequestDto);
 
+    @Mapping(target = "roles", ignore = true)
     void toEntity(@MappingTarget User user, UserRequestDto userRequestDto);
 
     @Mapping(target = "roles", expression = "java(toRoleEnumList(user.getRoles()))")
@@ -49,7 +50,7 @@ public interface UserMapperM {
         userResponseDto.setRoles(user.getRoles().stream().map(Role::getName).toList());
     }
 
-    @Mapping(target = "name", expression = "java(roleEnum)")
-    Role toRole(RoleEnum roleEnum);
+//    @Mapping(target = "name", expression = "java(roleEnum)")
+//    Role toRole(RoleEnum roleEnum);
 
 }

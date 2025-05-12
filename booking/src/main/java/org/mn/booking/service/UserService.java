@@ -1,14 +1,20 @@
 package org.mn.booking.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mn.booking.annotation.constant.RoleEnum;
 import org.mn.booking.config.MinioProperties;
 import org.mn.booking.dto.request.UserRequestDto;
 import org.mn.booking.dto.response.UserResponseDto;
+import org.mn.booking.entity.Role;
 import org.mn.booking.entity.User;
 import org.mn.booking.error.EntityNotFoundException;
 import org.mn.booking.mapper.UserMapperM;
+import org.mn.booking.repository.RoleRepository;
 import org.mn.booking.repository.UserRepository;
 import org.mn.booking.util.FileUtil;
 import org.springframework.context.MessageSource;
@@ -33,6 +39,7 @@ public class UserService {
     private final PdfGeneratorService pdfGeneratorService;
     private final MessageSource messageSource;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
 
     @Transactional
@@ -41,6 +48,9 @@ public class UserService {
         User user = userMapper.toEntity(userRequestDto);
 
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+
+        Set<Role> roles = roleRepository.findByNameIn(userRequestDto.getRoles());
+        user.setRoles(roles);
 
         UserResponseDto responseDto = userMapper
                 .toUserResponseDto(userRepository.save(user));
@@ -103,6 +113,15 @@ public class UserService {
         userMapper.toEntity(user, userRequestDto);
 
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+
+//        boolean allMatch = user.getRoles().stream()
+//                .map(Role::getName)
+//                .allMatch(role -> userRequestDto.getRoles().contains(role));
+//
+//        if (!allMatch) {
+        Set<Role> roles = roleRepository.findByNameIn(userRequestDto.getRoles());
+        user.setRoles(roles);
+//        }
 
         UserResponseDto responseDto = userMapper
                 .toUserResponseDto(userRepository.save(user));
