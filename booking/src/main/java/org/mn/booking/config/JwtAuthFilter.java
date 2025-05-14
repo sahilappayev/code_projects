@@ -42,6 +42,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+
         String authHeader = request.getHeader(AUTHORIZATION_HEADER);  // Bearer eydfglkndgf.sdhghf.sdghkrshkus
 
 
@@ -92,6 +93,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 .errors(List.of("Invalid JWT token"))
                 .path(request.getServletPath())
                 .build();
+
+        System.err.println("errorResponse: " + errorResponse);
+
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());

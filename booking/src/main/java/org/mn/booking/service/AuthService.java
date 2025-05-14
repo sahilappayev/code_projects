@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mn.booking.dto.request.AuthRequestDto;
 import org.mn.booking.dto.response.AuthResponseDto;
 import org.mn.booking.error.AuthenticationException;
+import org.mn.booking.sheduler.JavaTask;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,13 +24,18 @@ public class AuthService {
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+    private final JavaTask javaTask;
 
     public AuthResponseDto login(AuthRequestDto requestDto) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(requestDto.username());
 
         boolean isPassMatched = passwordEncoder.matches(requestDto.password(), userDetails.getPassword());
 
-        if (!isPassMatched) throw new AuthenticationException();
+        if (!isPassMatched) {
+//            javaTask.printOrders();
+            throw new AuthenticationException();
+        }
+
 
         Authentication authentication = new
                 UsernamePasswordAuthenticationToken(

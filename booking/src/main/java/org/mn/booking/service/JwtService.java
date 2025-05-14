@@ -77,6 +77,7 @@ public class JwtService {
 
     public String buildRefreshToken(UserDetails userDetails, Map<String, Object> extraClaims) {
         return Jwts.builder().subject(userDetails.getUsername())
+                .claim(AUTHORITIES, userDetails.getAuthorities())
                 .claims(extraClaims)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + (1000L * 60 * ttlRefreshInMinutes)))
