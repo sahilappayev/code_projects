@@ -36,6 +36,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private static final String AUTHORITY = "authority";
 
     private final JwtService jwtService;
+    private final ObjectMapper objectMapper;
 
 
     @Override
@@ -83,7 +84,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     }
 
-    private static void errorResponse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void errorResponse(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
 

@@ -32,8 +32,9 @@ public class SecurityConfig {
                     req
                             .requestMatchers("/auth/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**",
-                                    "/swagger-ui.html").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/users/**", "/orders/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
+                                    "/swagger-ui.html", "/cats/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/users/**", "/orders/**")
+                            .hasAnyRole("USER", "ADMIN", "MODERATOR")
                             .requestMatchers(HttpMethod.POST, "/users/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")

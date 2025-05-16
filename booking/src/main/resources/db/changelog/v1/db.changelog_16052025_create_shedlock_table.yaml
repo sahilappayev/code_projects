@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      author: Sahil Appayev
+      id: 07052025_create_shedlock_table
+      changes:
+        - createTable:
+            tableName: shedlock
+            columns:
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: lock_until
+                  type: TIMESTAMP
+              - column:
+                  name: locked_at
+                  type: TIMESTAMP
+              - column:
+                  name: locked_by
+                  type: VARCHAR(255)

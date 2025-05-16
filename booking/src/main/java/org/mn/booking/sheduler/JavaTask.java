@@ -31,7 +31,7 @@ public class JavaTask {
         System.out.println(Thread.currentThread().getName() + "  started: " + new Date());
 
 //        timer.scheduleAtFixedRate(task, 1000, 5000);
-//        timer.schedule(task, new Date(2025, 5, 28), Long.MAX_VALUE);
+        timer.schedule(task, new Date(2025, 5, 28), Long.MAX_VALUE);
 
         System.out.println(Thread.currentThread().getName() + "  Ended: " + new Date());
 

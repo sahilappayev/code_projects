@@ -9,6 +9,23 @@ spring:
 
   liquibase:
     enabled: true
+  cloud:
+    openfeign:
+      okhttp:
+        enabled: true
+      client:
+        config:
+          cat:
+            connect-timeout: 1500
+            read-timeout: 2000
+            logger-level: basic
+#            error-decoder: org.mn.booking.client.CatErrorDecoder
+#
+#          default:
+#            connectTimeout: 1000
+#            readTimeout: 3000
+#            loggerLevel: full
+
 #  jpa:
 #    open-in-view: false
 
@@ -52,3 +69,18 @@ jwt:
   access:
     ttl: 2
     secret-key: ef2a9ed1f716d5b7f0fc68b992714ec2feccf145f88ef79f8b3dc77f6a549eea75df2848046b819810446667d290815363ab481b5d0cfc4c2094d5989a5c58168b489a462f09fbdfa523e3418d530d2c567fdac656834f0dc832ba87e9a2d5c4558db3ececae4bf701c6723c9b417af6043f0cdd94b2ed016f1fa2bf8f33f23a
+
+
+scheduler:
+  default:
+    lockAtMost: 1H
+  printOrders:
+    lockAtLeast: 15S
+    lockAtMost: 30M
+
+
+api:
+  cat:
+    url: https://catfact.ninja
+
+
