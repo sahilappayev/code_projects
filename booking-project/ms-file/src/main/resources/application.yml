@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: ms-file
+
+logging:
+  level:
+    root: info
+
+server:
+  port: 8081
+
+minio:
+  url: http://127.0.0.1:9000/
+  bucket: booking
+  access-key: bookingUser
+  secret-key: bookingSecret
+  image-folder: image/
+  video-folder: video/
+  document-folder: document/
+
+file:
+  upload:
+    acceptableVideoExtensions: mp4,mov,avi,wmv
+    acceptableImageExtensions: jpg,png,jpeg
+    acceptablePdfExtensions: pdf
+
+
