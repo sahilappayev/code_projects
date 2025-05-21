@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: ms-account
+
+  datasource:
+    username: sahil
+    password: mypassword
+    url: jdbc:postgresql://127.0.0.1:5433/postgres
+  jpa:
+    open-in-view: false
+
+  cloud:
+    openfeign:
+      okhttp:
+        enabled: true
+      client:
+        config:
+          default:
+            connect-timeout: 1500
+            read-timeout: 2000
+            logger-level: basic
+
+logging:
+  level:
+    root: info
+
+springdoc:
+  api-docs:
+    version: openapi_3_0
+
+server:
+  port: 8082
+
+jwt:
+  refresh:
+    ttl: 5
+    secret-key: eff1efd57b47cb789ab0013c2d4e3ea4d6c18eadf45cc69c4f58ccc704254f455e5c9e35da7a7ef5bee907e89a9c6fa875bcf4ba1fe483f57a6f3dbe6235f8e8f2c63e89894265537bd1a7cb000e98d1382d6d888ef0c6b3f73a6e47d1ed236865899f0c02244abb53ba0f5ad83769106cea15df48ded552c8d824ffe2eaeca8
+  access:
+    ttl: 2
+    secret-key: ef2a9ed1f716d5b7f0fc68b992714ec2feccf145f88ef79f8b3dc77f6a549eea75df2848046b819810446667d290815363ab481b5d0cfc4c2094d5989a5c58168b489a462f09fbdfa523e3418d530d2c567fdac656834f0dc832ba87e9a2d5c4558db3ececae4bf701c6723c9b417af6043f0cdd94b2ed016f1fa2bf8f33f23a
+api:
+  ms-file:
+    url: http://127.0.0.1:8081
+  ms-product:
+    url: http://127.0.0.1:8083
+

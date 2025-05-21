@@ -38,7 +38,7 @@ public class ImageService {
             throw exception;
         }
 
-        return objectName;
+        return newObjectName;
     }
 
     public void delete(String objectName) {

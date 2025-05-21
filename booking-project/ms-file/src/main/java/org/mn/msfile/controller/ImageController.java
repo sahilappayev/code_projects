@@ -23,10 +23,9 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @GetMapping(value = "/{objectName}",
-            produces = {MediaType.IMAGE_JPEG_VALUE,
+    @GetMapping(produces = {MediaType.IMAGE_JPEG_VALUE,
                     MediaType.IMAGE_PNG_VALUE})
-    public byte[] getImage(@PathVariable String objectName) {
+    public byte[] getImage(@RequestParam String objectName) {
         return imageService.getImage(objectName);
     }
 
