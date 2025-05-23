@@ -5,6 +5,8 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mn.msaccount.client.msfile.MsFileClient;
+import org.mn.msaccount.client.msproduct.MsProductClient;
+import org.mn.msaccount.client.msproduct.OrderResponseDto;
 import org.mn.msaccount.dto.request.UserRequestDto;
 import org.mn.msaccount.dto.response.UserResponseDto;
 import org.mn.msaccount.entity.Role;
@@ -28,6 +30,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
     private final MsFileClient msFileClient;
+    private final MsProductClient msProductClient;
 
 
     @Transactional
@@ -50,9 +53,12 @@ public class UserService {
         log.info("UserService: find user by id: {}", id);
         User user = findById(id);
 
-        return userMapper.toUserResponseDto(user);
-    }
+        UserResponseDto userResponseDto = userMapper.toUserResponseDto(user);
 
+        List<OrderResponseDto> orders = msProductClient.getOrdersByUserId(id);
+        userResponseDto.setOrders(orders);
+        return userResponseDto;
+    }
 
     public UserResponseDto findByUsername(String username) {
         log.info("UserService: find user by username: {}", username);

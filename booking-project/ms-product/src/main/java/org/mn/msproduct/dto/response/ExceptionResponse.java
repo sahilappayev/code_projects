@@ -1,14 +1,22 @@
-package org.mn.msaccount.client.msfile;
+package org.mn.msproduct.dto.response;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-public class MsFileException extends RuntimeException {
+@ToString
+public class ExceptionResponse {
 
     private HttpStatus status;
     private List<String> errors;

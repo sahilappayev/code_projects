@@ -28,12 +28,11 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(req -> {
                     req
-                            .requestMatchers("/auth/**", "/reports/**").permitAll()
+                            .requestMatchers("/auth/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**",
-                                    "/swagger-ui.html", "/cats/**").permitAll()
+                                    "/swagger-ui.html").permitAll()
                             .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/users/**", "/orders/**")
-                            .hasAnyRole("USER", "ADMIN", "MODERATOR")
+                            .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
                             .requestMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
                             .anyRequest().authenticated();

@@ -1,4 +1,4 @@
-package org.mn.msaccount.error;
+package org.mn.msproduct.error;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mn.msaccount.client.msfile.MsFileException;
-import org.mn.msaccount.dto.response.ExceptionResponse;
+import org.mn.msproduct.client.msaccount.MsAccountException;
+import org.mn.msproduct.dto.response.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -57,7 +57,6 @@ public class GlobalExceptionHandler {
         for (FieldError fieldError : bindingResult.getFieldErrors()) {
             String field = fieldError.getField();
             String message = fieldError.getDefaultMessage();
-
             errors.add(field + ": " + message);
         }
 
@@ -70,8 +69,9 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
-    @ExceptionHandler(MsFileException.class)
-    public ResponseEntity<ExceptionResponse> handleMsAccountException(MsFileException exception,
+
+    @ExceptionHandler(MsAccountException.class)
+    public ResponseEntity<ExceptionResponse> handleMsAccountException(MsAccountException exception,
                                                                       HttpServletRequest request) {
         log.error(exception.getMessage(), exception);
         return ResponseEntity.status(exception.getStatus())

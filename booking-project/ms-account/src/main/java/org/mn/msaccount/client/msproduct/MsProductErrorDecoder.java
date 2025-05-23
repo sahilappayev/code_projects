@@ -1,4 +1,4 @@
-package org.mn.msaccount.client.msfile;
+package org.mn.msaccount.client.msproduct;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -10,7 +10,7 @@ import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MsFileErrorDecoder implements ErrorDecoder {
+public class MsProductErrorDecoder implements ErrorDecoder {
 
     @Override
     public Exception decode(String s, Response response) {
@@ -22,7 +22,7 @@ public class MsFileErrorDecoder implements ErrorDecoder {
                 objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
                 return objectMapper
-                        .readValue(inputStream, MsFileException.class);
+                        .readValue(inputStream, MsProductException.class);
             } catch (Exception exception) {
                 log.error("Error decoding failed", exception);
             }

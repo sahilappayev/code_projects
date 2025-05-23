@@ -1,4 +1,4 @@
-package org.mn.msaccount.config;
+package org.mn.msproduct.config;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -15,7 +15,7 @@ public class SwaggerConfig {
     public OpenAPI springShopOpenAPI() {
         return new OpenAPI()
                 .info(new Info().title("Booking API")
-                        .description("Spring Boot Ms-account API")
+                        .description("Spring Boot Ms-Product API")
                         .version("v1.0.0")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()

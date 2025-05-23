@@ -1,4 +1,4 @@
-package org.mn.msaccount.client.msfile;
+package org.mn.msaccount.client.msproduct;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
-public class MsFileException extends RuntimeException {
+public class MsProductException extends RuntimeException {
 
     private HttpStatus status;
     private List<String> errors;

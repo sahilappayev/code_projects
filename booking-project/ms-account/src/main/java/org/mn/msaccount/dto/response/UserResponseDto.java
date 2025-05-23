@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.mn.msaccount.annotation.constant.RoleEnum;
+import org.mn.msaccount.client.msproduct.OrderResponseDto;
 
 @Getter
 @Setter
@@ -22,6 +23,7 @@ public class UserResponseDto {
     private String lastName;
     private String image;
     private List<RoleEnum> roles;
+    private List<OrderResponseDto> orders;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime currentDate;
