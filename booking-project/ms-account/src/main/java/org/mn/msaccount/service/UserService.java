@@ -38,6 +38,8 @@ public class UserService {
         log.info("UserService: create user started with: {}", userRequestDto);
         User user = userMapper.toEntity(userRequestDto);
 
+        if (userRequestDto.getUsername() == null) throw new RuntimeException("Invalid username");
+
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
 
         Set<Role> roles = roleRepository.findByNameIn(userRequestDto.getRoles());
@@ -57,7 +59,14 @@ public class UserService {
 
         List<OrderResponseDto> orders = msProductClient.getOrdersByUserId(id);
         userResponseDto.setOrders(orders);
-        return userResponseDto;
+
+        UserResponseDto responseDto = new UserResponseDto();
+        responseDto.setUsername(userResponseDto.getUsername());
+        responseDto.setRoles(userResponseDto.getRoles());
+        responseDto.setPassword(userResponseDto.getPassword());
+        responseDto.setOrders(orders);
+
+        return responseDto;
     }
 
     public UserResponseDto findByUsername(String username) {
